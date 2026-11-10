@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panel of Experts — Your Panel</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <nav class="nav">
+      <a class="logo" href="index.html">
+        <svg viewBox="0 0 32 32" fill="none">
+          <rect x="2" y="2" width="12" height="12" rx="3" fill="#4f46e5"/>
+          <rect x="18" y="2" width="12" height="12" rx="3" fill="#818cf8"/>
+          <rect x="2" y="18" width="12" height="12" rx="3" fill="#818cf8"/>
+          <rect x="18" y="18" width="12" height="12" rx="3" fill="#4f46e5"/>
+        </svg>
+        <span>Panel of Experts</span>
+      </a>
+      <div class="links">
+        <a href="index.html">Home</a>
+        <a class="btn btn-ghost" href="login.html">Log Out</a>
+      </div>
+    </nav>
+
+    <div class="ask-box">
+      <h1 style="text-align:center; font-size:26px; letter-spacing:-0.02em;">Ask the panel anything</h1>
+      <textarea id="question" placeholder="Type your question here…"></textarea>
+      <div class="ask-actions">
+        <button class="btn btn-primary" id="askBtn">Ask the Panel</button>
+      </div>
+    </div>
+
+    <div class="answers" id="answers"></div>
+
+    <footer>© 2026 Panel of Experts. Built for curious people.</footer>
+
+    <script>
+      // Mock panel: placeholder answers until a real backend exists.
+      const PANEL = [
+        { emoji: "🧪", name: "Dr. Nova", role: "Scientist",
+          line: q => "From a science angle: " + q + " comes down to evidence. Start with what has been tested, and stay skeptical of claims without data." },
+        { emoji: "📊", name: "Marcus", role: "Data Analyst",
+          line: q => "Looking at the numbers behind " + q + ": the honest answer is 'it depends' — the outcome usually shifts based on your specific situation." },
+        { emoji: "💼", name: "Priya", role: "Practical Advisor",
+          line: q => "Practically speaking, don't overthink " + q + ". Break it into one small step you can take today, and adjust as you learn." },
+        { emoji: "⚖️", name: "Sam", role: "Ethicist",
+          line: q => "It's worth asking who is affected by " + q + ". The best answer is usually the one that treats everyone involved fairly." }
+      ];
+
+      const question = document.getElementById("question");
+      const askBtn = document.getElementById("askBtn");
+      const answers = document.getElementById("answers");
+
+      function answerCard(p, q) {
+        return '<div class="answer">' +
+          '<div class="who"><div class="avatar">' + p.emoji + '</div>' +
+          '<div><div class="name">' + p.name + '</div><div class="role">' + p.role + '</div></div></div>' +
+          '<p>' + p.line(q) + '</p></div>';
+      }
+
+      askBtn.addEventListener("click", function () {
+        const q = question.value.trim();
+        if (q.length < 3) {
+          answers.innerHTML = '<div class="message error" style="display:block;">Please type a question first.</div>';
+          return;
+        }
+        askBtn.disabled = true;
+        askBtn.textContent = "The panel is thinking…";
+        answers.innerHTML = "";
+
+        setTimeout(function () {
+          PANEL.forEach(function (p, i) {
+            setTimeout(function () {
+              answers.insertAdjacentHTML("beforeend", answerCard(p, q));
+            }, i * 250);
+          });
+          askBtn.disabled = false;
+          askBtn.textContent = "Ask the Panel";
+        }, 700);
+      });
+    </script>
+  </body>
+</html>
