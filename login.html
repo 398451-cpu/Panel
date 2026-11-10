@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panel of Experts — Log In</title>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+
+      :root {
+        font-family: Inter, system-ui, -apple-system, sans-serif;
+        --ink: #111827;
+        --muted: #6b7280;
+        --brand: #4f46e5;
+        --brand-dark: #4338ca;
+        --bg: #f3f4f6;
+        --card: #ffffff;
+        --error: #dc2626;
+        --ok: #16a34a;
+      }
+
+      body {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(160deg, #eef2ff 0%, #f8fafc 45%, #eef2ff 100%);
+        padding: 24px;
+        color: var(--ink);
+      }
+
+      .card {
+        width: 100%;
+        max-width: 400px;
+        background: var(--card);
+        border-radius: 16px;
+        box-shadow: 0 10px 40px rgba(17, 24, 39, 0.10);
+        padding: 40px 36px;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        justify-content: center;
+        margin-bottom: 8px;
+      }
+
+      .logo svg { width: 30px; height: 30px; }
+
+      .logo span {
+        font-size: 20px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+      }
+
+      .tagline {
+        text-align: center;
+        color: var(--muted);
+        font-size: 14px;
+        margin-bottom: 28px;
+      }
+
+      h1 {
+        font-size: 22px;
+        text-align: center;
+        margin-bottom: 24px;
+        letter-spacing: -0.02em;
+      }
+
+      label {
+        display: block;
+        font-size: 13px;
+        font-weight: 600;
+        margin-bottom: 6px;
+      }
+
+      .field { margin-bottom: 16px; }
+
+      input {
+        width: 100%;
+        padding: 11px 13px;
+        font-size: 15px;
+        border: 1.5px solid #d1d5db;
+        border-radius: 10px;
+        outline: none;
+        transition: border-color 0.15s, box-shadow 0.15s;
+        font-family: inherit;
+      }
+
+      input:focus {
+        border-color: var(--brand);
+        box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+      }
+
+      .row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        font-size: 13px;
+      }
+
+      .row label {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-weight: 400;
+        color: var(--muted);
+        margin: 0;
+        cursor: pointer;
+      }
+
+      .row a { color: var(--brand); text-decoration: none; }
+      .row a:hover { text-decoration: underline; }
+
+      button {
+        width: 100%;
+        padding: 12px;
+        font-size: 15px;
+        font-weight: 600;
+        color: #fff;
+        background: var(--brand);
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: background 0.15s, transform 0.05s;
+      }
+
+      button:hover { background: var(--brand-dark); }
+      button:active { transform: scale(0.98); }
+      button:disabled { opacity: 0.6; cursor: wait; }
+
+      .message {
+        display: none;
+        margin-top: 14px;
+        padding: 10px 12px;
+        border-radius: 8px;
+        font-size: 13px;
+        text-align: center;
+      }
+
+      .message.error { display: block; background: #fef2f2; color: var(--error); }
+      .message.ok { display: block; background: #f0fdf4; color: var(--ok); }
+
+      .divider {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 22px 0;
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      .divider::before, .divider::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: #e5e7eb;
+      }
+
+      .alt {
+        width: 100%;
+        padding: 11px;
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--ink);
+        background: #fff;
+        border: 1.5px solid #d1d5db;
+        border-radius: 10px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        transition: background 0.15s;
+      }
+
+      .alt:hover { background: #f9fafb; }
+
+      .signup {
+        text-align: center;
+        margin-top: 24px;
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      .signup a { color: var(--brand); font-weight: 600; text-decoration: none; }
+      .signup a:hover { text-decoration: underline; }
+
+      .hidden { display: none; }
+    </style>
+  </head>
+  <body>
+    <main class="card">
+      <div class="logo">
+        <svg viewBox="0 0 32 32" fill="none">
+          <rect x="2" y="2" width="12" height="12" rx="3" fill="#4f46e5"/>
+          <rect x="18" y="2" width="12" height="12" rx="3" fill="#818cf8"/>
+          <rect x="2" y="18" width="12" height="12" rx="3" fill="#818cf8"/>
+          <rect x="18" y="18" width="12" height="12" rx="3" fill="#4f46e5"/>
+        </svg>
+        <span>Panel of Experts</span>
+      </div>
+      <p class="tagline">Ask the panel. Get answers.</p>
+
+      <form id="loginForm" novalidate>
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required />
+        </div>
+        <div class="field">
+          <label for="password">Password</label>
+          <input id="password" name="password" type="password" placeholder="••••••••" autocomplete="current-password" minlength="8" required />
+        </div>
+        <div class="row">
+          <label><input type="checkbox" id="remember" /> Remember me</label>
+          <a href="#" id="forgotLink">Forgot password?</a>
+        </div>
+        <button type="submit" id="submitBtn">Log In</button>
+        <div class="message" id="message" role="alert"></div>
+      </form>
+
+      <div class="divider">or</div>
+
+      <button class="alt" id="googleBtn" type="button">
+        <svg width="16" height="16" viewBox="0 0 24 24">
+          <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.9a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.29-4.74 3.29-8.1z"/>
+          <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.65l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84A11 11 0 0 0 12 23z"/>
+          <path fill="#FBBC05" d="M5.84 14.11a6.6 6.6 0 0 1 0-4.22V7.05H2.18a11 11 0 0 0 0 9.9l3.66-2.84z"/>
+          <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.05l3.66 2.84c.87-2.6 3.3-4.51 6.16-4.51z"/>
+        </svg>
+        Continue with Google
+      </button>
+
+      <p class="signup">New here? <a href="#" id="signupLink">Create an account</a></p>
+    </main>
+
+    <script>
+      const form = document.getElementById("loginForm");
+      const email = document.getElementById("email");
+      const password = document.getElementById("password");
+      const message = document.getElementById("message");
+      const submitBtn = document.getElementById("submitBtn");
+
+      function showMessage(text, kind) {
+        message.textContent = text;
+        message.className = "message " + kind;
+      }
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim());
+        const passOk = password.value.length >= 8;
+
+        if (!emailOk) {
+          showMessage("Please enter a valid email address.", "error");
+          email.focus();
+          return;
+        }
+        if (!passOk) {
+          showMessage("Password must be at least 8 characters.", "error");
+          password.focus();
+          return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Logging in…";
+        showMessage("", "");
+
+        // Placeholder for real authentication. Replace with a fetch() call
+        // to your backend / auth provider when it exists.
+        setTimeout(function () {
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Log In";
+          showMessage("Login works! (No backend connected yet — this is the front-end only.)", "ok");
+        }, 800);
+      });
+
+      document.getElementById("googleBtn").addEventListener("click", function () {
+        showMessage("Google sign-in isn't wired up yet. It needs a backend.", "error");
+      });
+
+      document.getElementById("forgotLink").addEventListener("click", function (e) {
+        e.preventDefault();
+        showMessage("Password reset page hasn't been built yet.", "error");
+      });
+
+      document.getElementById("signupLink").addEventListener("click", function (e) {
+        e.preventDefault();
+        showMessage("Sign-up page hasn't been built yet.", "error");
+      });
+    </script>
+  </body>
+</html>
