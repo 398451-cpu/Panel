@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panel of Experts — Create Account</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <nav class="nav">
+      <a class="logo" href="index.html">
+        <svg viewBox="0 0 32 32" fill="none">
+          <rect x="2" y="2" width="12" height="12" rx="3" fill="#4f46e5"/>
+          <rect x="18" y="2" width="12" height="12" rx="3" fill="#818cf8"/>
+          <rect x="2" y="18" width="12" height="12" rx="3" fill="#818cf8"/>
+          <rect x="18" y="18" width="12" height="12" rx="3" fill="#4f46e5"/>
+        </svg>
+        <span>Panel of Experts</span>
+      </a>
+      <div class="links">
+        <a class="btn btn-ghost" href="login.html">Log In</a>
+      </div>
+    </nav>
+
+    <main class="auth-wrap">
+      <div class="auth-card">
+        <h1>Create your account</h1>
+        <form id="signupForm" novalidate>
+          <div class="field">
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" placeholder="Your name" autocomplete="name" required />
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required />
+          </div>
+          <div class="field">
+            <label for="password">Password</label>
+            <input id="password" name="password" type="password" placeholder="At least 8 characters" autocomplete="new-password" minlength="8" required />
+          </div>
+          <div class="field">
+            <label for="confirm">Confirm password</label>
+            <input id="confirm" name="confirm" type="password" placeholder="Repeat your password" autocomplete="new-password" required />
+          </div>
+          <button type="submit" class="full-btn" id="submitBtn">Create Account</button>
+          <div class="message" id="message" role="alert"></div>
+        </form>
+        <p class="under-form">Already have an account? <a href="login.html">Log in</a></p>
+      </div>
+    </main>
+
+    <script>
+      const form = document.getElementById("signupForm");
+      const message = document.getElementById("message");
+      const submitBtn = document.getElementById("submitBtn");
+
+      function showMessage(text, kind) {
+        message.textContent = text;
+        message.className = "message " + kind;
+      }
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const name = document.getElementById("name").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value;
+        const confirm = document.getElementById("confirm").value;
+
+        if (name.length < 2) { showMessage("Please enter your name.", "error"); return; }
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showMessage("Please enter a valid email address.", "error"); return; }
+        if (password.length < 8) { showMessage("Password must be at least 8 characters.", "error"); return; }
+        if (password !== confirm) { showMessage("Passwords do not match.", "error"); return; }
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Creating account…";
+
+        // Placeholder for a real backend. Replace with a fetch() call later.
+        setTimeout(function () {
+          showMessage("Account created! (No backend yet — heading to the panel anyway.)", "ok");
+          setTimeout(function () { window.location.href = "dashboard.html"; }, 900);
+        }, 700);
+      });
+    </script>
+  </body>
+</html>
